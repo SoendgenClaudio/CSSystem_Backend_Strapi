@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contacts",
+  "info": {
+    "singularName": "contact",
+    "pluralName": "contacts",
+    "displayName": "Contact"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "Subject": {
+      "type": "string",
+      "required": true
+    },
+    "EMail": {
+      "type": "email",
+      "required": true
+    },
+    "Message": {
+      "type": "blocks",
+      "required": true
+    },
+    "AgreeDSE": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    }
+  }
+}

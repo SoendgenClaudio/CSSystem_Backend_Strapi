@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_template_technical_details",
+  "info": {
+    "displayName": "TechnicalDetails"
+  },
+  "options": {},
+  "attributes": {
+    "Version": {
+      "type": "string",
+      "required": true
+    },
+    "License": {
+      "type": "string",
+      "required": true
+    },
+    "TechnologieStack": {
+      "type": "string",
+      "required": true
+    },
+    "Autor": {
+      "type": "string",
+      "required": true
+    },
+    "Compatibility": {
+      "type": "string",
+      "required": true
+    },
+    "LatestUpdate": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "config": {}
+}
