@@ -1,6 +1,9 @@
 module.exports = ({ env }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
+    cookie: {
+      secure: true, // secure Cookies nur über HTTPS
+    },
   },
   apiToken: {
     salt: env('API_TOKEN_SALT'),
@@ -17,4 +20,5 @@ module.exports = ({ env }) => ({
     nps: env.bool('FLAG_NPS', true),
     promoteEE: env.bool('FLAG_PROMOTE_EE', true),
   },
+  url: env('PUBLIC_URL', 'https://www.cssystem.de'), // <--- die öffentliche URL
 });

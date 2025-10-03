@@ -11,6 +11,7 @@ services:
       - backend
     environment:
       NODE_ENV: production
+      TRUST_PROXY: 1
       DATABASE_CLIENT: postgres
       DATABASE_HOST: cssystem-database
       DATABASE_PORT: 5432
@@ -21,8 +22,10 @@ services:
       API_TOKEN_SALT: ${API_TOKEN_SALT}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       JWT_SECRET: ${JWT_SECRET}
-      SMTP_USER: ${SMTP_USER}
-      SMTP_PASS: ${SMTP_PASS}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      PUBLIC_URL: https://www.cssystem.de
+
 
   # Frontend
   cssystem-website:
