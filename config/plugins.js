@@ -1,5 +1,3 @@
-const ionosProvider = require("../providers/strapi-provider-email-ionos");
-
 module.exports = ({ env }) => ({
   email: {
     config: {
