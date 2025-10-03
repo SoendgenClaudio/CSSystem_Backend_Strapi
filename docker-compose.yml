@@ -8,26 +8,25 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-    networks:
-      - backend
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
     ports:
       - "5432:5432"
 
   # Strapi Backend
   cssystem-backend:
     build:
-      context: .   # Dein Strapi Backend Ordner
+      context: .
     image: cssystem-backend:latest
     container_name: cssystem-backend
-    ports: []
+    ports:
+      - "1337:1337"
     networks:
       - backend
     depends_on:
       - cssystem-database
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_HOST: cssystem-database
@@ -39,6 +38,8 @@ services:
       API_TOKEN_SALT: ${API_TOKEN_SALT}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       JWT_SECRET: ${JWT_SECRET}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
 
   # Frontend
   cssystem-website:
@@ -49,10 +50,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    depends_on:
-      - cssystem-backend
     networks:
       - backend
+    depends_on:
+      - cssystem-backend
     volumes:
       - /home/wwwuser/data/cert:/etc/nginx/cert:ro
       - /home/wwwuser/data/certbot/www/:/var/www/certbot:ro

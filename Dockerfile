@@ -4,16 +4,16 @@ FROM node:20-alpine
 # Set working directory
 WORKDIR /app
 
-# Copy package files first (Cache optimieren)
-COPY package.json package-lock.json ./
+# Copy package files first for caching
+COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install only production dependencies
+RUN npm install --production
 
-# Copy rest of the app
+# Copy the rest of the app (inklusive /providers)
 COPY . .
 
-# Build Strapi (nur nötig, wenn du production mode willst)
+# Build Strapi for production
 RUN npm run build
 
 # Expose port
