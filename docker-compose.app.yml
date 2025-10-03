@@ -1,10 +1,10 @@
 services:
+  # Strapi Backend
   cssystem-backend:
     build:
       context: .
     image: cssystem-backend:latest
     container_name: cssystem-backend
-    restart: always
     ports:
       - "1337:1337"
     networks:
@@ -23,22 +23,18 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SMTP_USER: ${SMTP_USER}
       SMTP_PASS: ${SMTP_PASS}
-    depends_on:
-      - cssystem-database
 
+  # Frontend
   cssystem-website:
     build:
       context: ../CSSystem_Website
     image: cssystem-website:latest
     container_name: cssystem-website
-    restart: always
     ports:
       - "80:80"
       - "443:443"
     networks:
       - backend
-    depends_on:
-      - cssystem-backend
     volumes:
       - /home/wwwuser/data/cert:/etc/nginx/cert:ro
       - /home/wwwuser/data/certbot/www/:/var/www/certbot:ro
