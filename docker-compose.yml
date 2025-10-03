@@ -28,6 +28,7 @@ services:
     depends_on:
       - cssystem-database
     environment:
+      NODE_ENV: production
       DATABASE_CLIENT: postgres
       DATABASE_HOST: cssystem-database
       DATABASE_PORT: 5432
