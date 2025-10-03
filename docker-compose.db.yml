@@ -16,7 +16,7 @@ services:
 
 networks:
   backend:
-    driver: bridge
+    external: true
 
 volumes:
   pgdata:
