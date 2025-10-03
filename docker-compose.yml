@@ -41,6 +41,8 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SMTP_USER: ${SMTP_USER}
       SMTP_PASS: ${SMTP_PASS}
+    # Startbefehl wartet auf DB
+    entrypoint: ["/wait-for-it.sh", "cssystem-database:5432", "--", "npm", "run", "start"]
 
   # Frontend
   cssystem-website:

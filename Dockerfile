@@ -1,23 +1,25 @@
 # Base Image
 FROM node:20-alpine
 
-# Set working directory
+# Arbeitsverzeichnis
 WORKDIR /app
 
-# Copy package files first for caching
-COPY package*.json ./
+# Abhängigkeiten kopieren und installieren
+COPY package.json package-lock.json ./
+RUN npm install
 
-# Install only production dependencies
-RUN npm install --production
-
-# Copy the rest of the app (inklusive /providers)
+# Rest des Projekts kopieren
 COPY . .
 
-# Build Strapi for production
+# Strapi für Production bauen
 RUN npm run build
 
-# Expose port
+# Wait-for-it Script kopieren (falls nicht schon im Projekt)
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
+
+# Port freigeben
 EXPOSE 1337
 
-# Start Strapi
-CMD ["npm", "run", "start"]
+# Start: zuerst warten, dann Strapi starten
+CMD ["/wait-for-it.sh", "cssystem-database:5432", "--", "npm", "run", "start"]
