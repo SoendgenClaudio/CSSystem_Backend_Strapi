@@ -1,32 +1,14 @@
 services:
-  # PostgreSQL-Datenbank
-  cssystem-database:
-    image: postgres:16
-    container_name: cssystem-postgres
-    restart: always
-    environment:
-      POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USERNAME}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    networks:
-      - backend
-    ports:
-      - "5432:5432"
-
-  # Strapi Backend
   cssystem-backend:
     build:
       context: .
     image: cssystem-backend:latest
     container_name: cssystem-backend
+    restart: always
     ports:
       - "1337:1337"
     networks:
       - backend
-    depends_on:
-      - cssystem-database
     environment:
       NODE_ENV: production
       DATABASE_CLIENT: postgres
@@ -41,15 +23,15 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SMTP_USER: ${SMTP_USER}
       SMTP_PASS: ${SMTP_PASS}
-    # Startbefehl wartet auf DB
-    entrypoint: ["/wait-for-it.sh", "cssystem-database:5432", "--", "npm", "run", "start"]
+    depends_on:
+      - cssystem-database
 
-  # Frontend
   cssystem-website:
     build:
       context: ../CSSystem_Website
     image: cssystem-website:latest
     container_name: cssystem-website
+    restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -63,7 +45,4 @@ services:
 
 networks:
   backend:
-    driver: bridge
-
-volumes:
-  pgdata:
+    external: true

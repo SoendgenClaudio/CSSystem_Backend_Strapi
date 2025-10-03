@@ -1,0 +1,22 @@
+services:
+  cssystem-database:
+    image: postgres:16
+    container_name: cssystem-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  pgdata:
