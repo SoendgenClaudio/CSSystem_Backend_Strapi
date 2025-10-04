@@ -20,5 +20,5 @@ module.exports = ({ env }) => ({
     nps: env.bool('FLAG_NPS', true),
     promoteEE: env.bool('FLAG_PROMOTE_EE', true),
   },
-  url: env('PUBLIC_URL', 'https://www.cssystem.de'), // <--- die öffentliche URL
+  url: env("PUBLIC_ADMIN_URL", "/admin"), // <--- die öffentliche URL
 });
